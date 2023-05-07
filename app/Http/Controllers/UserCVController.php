@@ -56,8 +56,10 @@ class UserCVController extends Controller
 
     $usercv->save();
 
-    dd('done');
-    return redirect('index')->with('your cv has been added');
+//    dd('done');
+//    return redirect('index')->with('your cv has been added');
+
+        return redirect()->back()->with('error', 'Please fill in the text field.');
 
     }
 

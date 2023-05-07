@@ -26,12 +26,16 @@ Route::get('/', function () {
 // Route::get('/dashboard', function () {
 //         return view('dashboard');
 //     })->middleware(['auth', 'verified'])->name('dashboard');
-    
+
     // showing our auth user all the cv's
     Route::get('/dashboard', [UserCVController::class, 'showcv'])
             ->middleware(['auth', 'verified'])
             ->name('dashboard');
     Route::get('showuser/{id}',[UserCVController::class, 'show']);
+
+// admin controller
+Route::post('updateusercv', [CVstatusController::class, 'store'])
+    ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -41,11 +45,11 @@ Route::middleware('auth')->group(function () {
 
 
 // for normal user to insert the cv
-Route::get('index', [UserCVController::class, 'index']);
+Route::get('applyforcv', [UserCVController::class, 'index']);
 Route::post('cvinsert', [UserCVController::class, 'store']);
 
-// change the status of the user
-Route::post('updateusercv', [CVstatusController::class, 'store'])
-->middleware(['auth', 'verified']);
+Route::get('searchCv', function (){
+    return view('searchCv');
+});
 
 require __DIR__.'/auth.php';

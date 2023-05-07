@@ -12,14 +12,14 @@ class UserCV extends Model
     use HasFactory;
 
     protected $fillable = [
-            "name",
-            "phone",
-            "email",
-            "technology",
-            "level",
-            "salary",
-            "experience",
-            "document",
+            'name',
+            'phone',
+            'email',
+            'technology',
+            'level',
+            'salary',
+            'experience',
+            'document',
 
     ];
 
