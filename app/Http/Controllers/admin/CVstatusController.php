@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
-use App\Models\User;
+use App\Http\Controllers\Controller;
 use App\Models\CVstatus;
 use App\Models\UserCV;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class CVstatusController extends Controller
@@ -39,7 +38,6 @@ class CVstatusController extends Controller
         $user->task = $taskname;
 
         $user->save();
-        dd('done');
         }
 
 //        $userupdate = CVstatus::find('usercv_id', $request->id)->first();
