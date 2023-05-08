@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\admin\CVstatusController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserCVController;
-use App\Http\Controllers\CVstatusController;
-use App\Models\UserCV;
 use Illuminate\Support\Facades\Route;
 
 

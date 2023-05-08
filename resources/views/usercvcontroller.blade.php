@@ -22,11 +22,13 @@
                                   <label> level =</label> <label>  {{$cv->level}} </label> <br>
                                   <label> salary =</label> <label>  {{$cv->salary}} </label> <br>
                                   <label> experience =</label> <label>    {{$cv->experience}} </label> <br>
-                                  <label> {{$cv->document}} </label> <br>
-                                    {{$cv->document}}
+
+                                  <label> user document =  {{$cv->document}} </label> <br>
 
                                     <img src="{{asset('images/cv/' .$cv['document']) }}" width="400px" height="auto" >
                               </div>
+
+                         @if($cvstatus)
 
                               <div class="flex-auto">
                                 interview date =
@@ -49,7 +51,7 @@
                                   @endif
 
                               </div>
-
+                      @endif
 
                               <div class="flex-auto">
                                     <p class="text-green-600">
