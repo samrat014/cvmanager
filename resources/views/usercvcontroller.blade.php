@@ -29,13 +29,37 @@
                               </div>
 
                               <div class="flex-auto">
-{{--                                    status = @if($cv->cvstatus()->status != null) {{$cv->status}}--}}
-                                    status = @if($cv->status != null) {{$cv->status}}
-                                              @else
-                                                new user
-                                              @endif
+                                interview date =
+                                  @if( $cvstatus->interview_date != null )
+                                      <p class="text-green-600">
+                                      {{$cvstatus->interview_date}}
+                                      </p>
+                                  @else
+                                        set the interview date
+                                      <br>
+                                  @endif
 
-                            <form action="{{ url('updateusercv')}}" method="POST" enctype="multipart/form-data">
+                                  status =
+                                  @if($cvstatus->status != null)
+                                      <p class="text-green-600">
+                                      {{$cvstatus->status}}
+                                          </p>
+                                  @else
+                                      new user
+                                  @endif
+
+                              </div>
+
+
+                              <div class="flex-auto">
+                                    <p class="text-green-600">
+
+
+                                  update user status <br>
+                                    </p>
+
+
+                            <form action="{{ url('admin/updateusercv')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                             <input type="hidden" name="id" value="{{$cv->id}}">
                                 <select name="status" class="text-black">

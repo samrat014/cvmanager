@@ -70,10 +70,9 @@ class UserCVController extends Controller
     {
         $cv = UserCV::findorfail($id);
 //            ->with('cvstatus');
+        $cvstatus = $cv->CVstatus;
 
-        return view('usercvcontroller',[
-            'cv' => $cv
-        ]);
+  return view('usercvcontroller', compact( 'cv', 'cvstatus'));
     }
 
     /**
