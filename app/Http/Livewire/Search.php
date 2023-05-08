@@ -11,6 +11,7 @@ class Search extends Component
 
     public function render()
     {
+
         $searcheduser = UserCV::where('name', 'like', '%' . $this->search . '%')
                 ->orWhere('technology', 'like', '%'  . $this->search )
                 ->get();

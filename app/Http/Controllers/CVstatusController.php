@@ -58,16 +58,28 @@ class CVstatusController extends Controller
                 'task' => $taskname
             ]);
 
-      //add a mail here
         $user= UserCV::where('id', $request->id)->first();
         $usercv =CVstatus::where('usercv_id', $request->id)->first();
 
+        //mail when hired
+//        if($usercv->status == 'Hired'){
+//
+//            $detials = [
+//                'user' => $user->name,
+//                'technology'=> $usercv->technology,
+//            ];
+//
+//            Mail::to($user->email)->send(new \App\Mail\hiredMail($detials));
+//        }
+
+//        mail on the admin updates the details
         $detials = [
-          'user' => $user->name,// find and place a username
+            'user' => $user->name,// find and place a username
             'status' => $request->status ?? 'in process',
             'task' => $usercv->task ?? 'nothing',
-          'interview_date' => $request->interview_date,
+            'interview_date' => $request->interview_date,
         ];
+
         Mail::to($user->email)->send(new \App\Mail\cvtaskmail($detials));
 
         return redirect()->back();
