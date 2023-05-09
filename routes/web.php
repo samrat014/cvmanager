@@ -25,23 +25,26 @@ Route::get('/', function () {
 //         return view('dashboard');
 //     })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::prefix('admin')->group(function (){
-
+Route::group(['prefix' => 'admin', 'middleware' => 'checkrole'], function (){
     // showing our auth user all the cv's
-    Route::get('/dashboard', [UserCVController::class, 'showcv'])
-            ->middleware(['auth', 'verified'])
-            ->name('dashboard');
+//    Route::get('/dashboard', [UserCVController::class, 'showcv'])
+//        ->middleware(['auth', 'verified'])
+//        ->name('dashboard');
     Route::get('showuser/{id}',[UserCVController::class, 'show']);
-
 // admin controller
-Route::post('updateusercv', [CVstatusController::class, 'store'])
-    ->middleware(['auth', 'verified']);
-
+    Route::post('updateusercv', [CVstatusController::class, 'store'])
+        ->middleware(['auth', 'verified']);
 //for searching the cv's
     Route::get('searchCv', function (){
-        return view('searchCv');
-    });
+        return view('searchCv');});
 });
+
+Route::prefix('admin')->group(function (){
+        Route::get('/dashboard', [UserCVController::class, 'showcv'])
+        ->middleware(['auth', 'verified'])
+        ->name('dashboard');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
