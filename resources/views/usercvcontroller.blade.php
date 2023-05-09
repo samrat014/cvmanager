@@ -36,7 +36,7 @@
                                       <p class="text-green-600">
                                       {{$cvstatus->interview_date}}
                                       </p>
-                                  @else
+                                      @else
                                         set the interview date
                                       <br>
                                   @endif
@@ -77,7 +77,7 @@
                                 <br>
                                 <br>
                             interview date
-                                <input type="date" class="text-black" name="interview_date"> <br>
+                                <input min="<?= date('Y-m-d\TH:i'); ?>" type="datetime-local" class="text-black" name="interview_date"> <br>
 
 {{--                                <div class="relative mb-3" >--}}
 {{--                                    <input--}}
