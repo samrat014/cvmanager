@@ -25,7 +25,7 @@
 
                                   <label> user document =  {{$cv->document}} </label> <br>
 
-                                    <img src="{{asset('images/cv/' .$cv['document']) }}" width="400px" height="auto" >
+                                    <img src="{{asset('images/cv/' .$cv['document']) }}" width="400px" height="auto" alt="document">
                               </div>
 
                          @if($cvstatus)
