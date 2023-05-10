@@ -13,7 +13,7 @@ class Search extends Component
     {
 
         $searcheduser = UserCV::where('name', 'like', '%' . $this->search . '%')
-                ->orWhere('technology', 'like', '%'  . $this->search )
+                ->orWhere('technology', 'like', '%'  . $this->search. '%' )
                 ->get();
 
         return view('livewire.search',
