@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Address;
-
+use Illuminate\Mail\Mailables\Attachment;
 class cvtaskmail extends Mailable
 {
     use Queueable, SerializesModels;
@@ -51,12 +51,17 @@ class cvtaskmail extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        return [
+
+//        Attachment::fromPath($this->$details['task']),
+        ];
     }
 
     public function build()
     {
+        $taskpath = public_path('images/task/'.$this->details['task']);
         return $this->subject('CV response from xyz')
-            ->view('taskUpdateMail');
+            ->view('taskUpdateMail')
+            ->attach($taskpath);
     }
 }
