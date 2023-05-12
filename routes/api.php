@@ -34,6 +34,9 @@ Route::prefix('admin')->group(function () {
 //            ->middleware(['auth', 'verified'])
         ->name('dashboard');
 
+    // show all user with status
+    Route::get('status',[UserCVController::class,'index']);
+
 //for searching
     Route::post('search', [Search::class, 'render']);
 

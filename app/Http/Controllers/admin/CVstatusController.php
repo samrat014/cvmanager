@@ -13,9 +13,10 @@ class CVstatusController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'usercv_id' => 'required',
-            'status' => Rule::in(['shortlisted', 'First Interview' ,
-                            'second interview' , 'Hired', 'Rejected ','Black listed']),
+            'id' => 'required',
+            'status' => 'required',
+//                Rule::in(['shortlisted', 'First Interview' ,
+//                            'second interview' , 'Hired', 'Rejected ','Black listed']),
             'task' => 'nullable',
             'interview_date' => 'nullable',
         ]);

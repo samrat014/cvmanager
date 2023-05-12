@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CVstatus;
 use App\Models\User;
 use App\Models\UserCV;
 use App\Http\Requests\StoreUserCVRequest;
@@ -19,7 +20,11 @@ class UserCVController extends Controller
      */
     public function index()
     {
-        return view('index');
+
+        $usercv = CVstatus::all();
+        return response()->json($usercv);
+
+//        return view('index');
     }
 
     /**
