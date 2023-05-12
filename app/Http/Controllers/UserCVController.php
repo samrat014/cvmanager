@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateUserCVRequest;
 //use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use function GuzzleHttp\Promise\all;
 
 class UserCVController extends Controller
 {
@@ -93,6 +94,15 @@ class UserCVController extends Controller
         //api
         return response()->json($cv);
 
+    }
+
+    public function alluser()
+    {
+        $allstatus  = UserCV::with('cvstatus')
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return response()->json($allstatus);
     }
 
     /**

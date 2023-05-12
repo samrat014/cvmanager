@@ -28,6 +28,7 @@ Route::post('cvinsert',[UserCVController::class, 'store']);
 // for admin
 Route::prefix('admin')->group(function () {
     Route::get('show/{id}', [UserCVController::class, 'show']);
+    Route::get('alluser', [UserCVController::class, 'alluser']);
 
     Route::post('store', [CVstatusController::class, 'store']);
     Route::get('dashboard', [UserCVController::class, 'showcv'])
