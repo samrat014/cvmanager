@@ -14,15 +14,16 @@ return new class extends Migration
         Schema::create('user_c_v_s', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->Integer('age');
             $table->string('phone');
             $table->string('email');
             $table->string('technology');
-            $table->enum('level',['Junior' , 'Mid' ,'Senior']);
-            $table->string('salary');
+//            $table->enum('level',['Junior' , 'Mid' ,'Senior']);
+//            $table->string('salary');
             $table->string('experience');
-            $table->string('document');
-            
-          
+//            $table->string('document');
+//            $table->string('references');
+            $table->string('address');
             $table->timestamps();
         });
     }

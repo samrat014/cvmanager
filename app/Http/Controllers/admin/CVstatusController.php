@@ -12,6 +12,13 @@ class CVstatusController extends Controller
 {
     public function store(Request $request)
     {
+        $request->validate([
+            'usercv_id' => 'required',
+            'status' => Rule::in(['shortlisted', 'First Interview' ,
+                            'second interview' , 'Hired', 'Rejected ','Black listed']),
+            'task' => 'nullable',
+            'interview_date' => 'nullable',
+        ]);
 
         if( $request->file('task'))
         {
@@ -54,8 +61,9 @@ class CVstatusController extends Controller
 //                'task' => $taskname
 //            ]);
 
+//for mail
         $user= UserCV::where('id', $request->id)->first();
-        $usercv =CVstatus::where('usercv_id', $request->id)->first();
+        $usercv = CVstatus::where('usercv_id', $request->id)->first();
 
 //        mail when hired
         if($usercv->status == 'Hired'){
@@ -78,6 +86,8 @@ class CVstatusController extends Controller
 
         Mail::to($user->email)->send(new \App\Mail\cvtaskmail($detials));
 
-        return redirect()->back();
+//        return redirect()->back();
+
+     return response()->json('user is inserted', '200');
     }
 }

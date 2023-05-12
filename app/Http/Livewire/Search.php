@@ -16,9 +16,13 @@ class Search extends Component
                 ->orWhere('technology', 'like', '%'  . $this->search. '%' )
                 ->get();
 
-        return view('livewire.search',
-            ['searcheduser' => $searcheduser,]
-    );
+        return response()->json($searcheduser);
+//
+//        return view('livewire.search',
+//            ['searcheduser' => $searcheduser,]
+//    );
+
+
     }
 
 }

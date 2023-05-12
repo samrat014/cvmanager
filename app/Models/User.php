@@ -12,6 +12,13 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+//    public function test_models_can_be_instantiated(): void
+//    {
+//        $user = User::factory()->create();
+//
+//        // ...
+//    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -41,5 +48,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
 }

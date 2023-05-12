@@ -22,15 +22,15 @@ class StoreUserCVRequest extends FormRequest
     public function rules(): array
     {
         return [
-//             "name" => 'required',
-//             "phone" => 'required|min:10',
-//             "email" => 'required|email|exists:email',
-//             "technology" => 'required',
+             "name" => 'required',
+             "phone" => 'required|min:10',
+             "email" => 'required|email',
+             "technology" => 'required',
 //             "level" => 'required',
 //             "salary" => 'required',
-//             "experience" => 'required',
+             "experience" => 'required',
 //             "document" => 'required|max:10|file|mimes:jpg,png,pdf',
-
+//            "references" => 'required',
         ];
     }
 }

@@ -11,17 +11,20 @@ class UserCV extends Model
 {
     use HasFactory;
 
-//    protected $fillable = [
-//            'name',
-//            'phone',
-//            'email',
-//            'technology',
+    protected $fillable = [
+            'name',
+            'age',
+            'phone',
+            'email',
+            'technology',
 //            'level',
 //            'salary',
-//            'experience',
+            'experience',
 //            'document',
-//
-//    ];
+//            'references',
+                'address',
+
+    ];
 
 public function cvstatus(): HasOne
 {

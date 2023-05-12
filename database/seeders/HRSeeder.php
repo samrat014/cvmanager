@@ -15,18 +15,18 @@ class HRSeeder extends Seeder
     public function run(): void
     {
 
-        DB::table('users')->insert([
-            'name' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('admin'),
-            'role' => 'admin'
-        ]);
-
-        DB::table('users')->insert([
-            'name' => 'hiring recruiter',
-            'email' => 'hiringrecruiter@gmail.com',
-            'password' => Hash::make('hiringrecruiter'),
-            'role' => 'admin',
-        ]);
+//        DB::table('users')->insert([
+//            'name' => 'admin',
+//            'email' => 'admin@gmail.com',
+//            'password' => Hash::make('admin'),
+//            'role' => 'admin'
+//        ]);
+//
+//        DB::table('users')->insert([
+//            'name' => 'hiring recruiter',
+//            'email' => 'hiringrecruiter@gmail.com',
+//            'password' => Hash::make('hiringrecruiter'),
+//            'role' => 'admin',
+//        ]);
     }
 }

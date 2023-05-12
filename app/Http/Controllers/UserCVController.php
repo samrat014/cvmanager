@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\UserCV;
 use App\Http\Requests\StoreUserCVRequest;
 use App\Http\Requests\UpdateUserCVRequest;
-use GuzzleHttp\Psr7\Request;
+//use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserCVController extends Controller
 {
@@ -32,8 +35,7 @@ class UserCVController extends Controller
      */
     public function store(StoreUserCVRequest $request)
     {
-        // dd($request->all());
-    $request->validated();
+        $request->validated();
 
     //   $document = $request->file('document')->storeAs('images', $request->document->getClientOriginalName());
 
@@ -46,20 +48,28 @@ class UserCVController extends Controller
 
     $usercv = new UserCV();
     $usercv->name = $request->name;
+    $usercv->age = $request->age;
     $usercv->email = $request->email;
     $usercv->phone = $request->phone;
     $usercv->technology = $request->technology;
-    $usercv->level = $request->level;
-    $usercv->salary = $request->salary;
+//    $usercv->level = $request->level;
+//    $usercv->salary = $request->salary;
     $usercv->experience = $request->experience;
-    $usercv->document = $docname;
+//    $usercv->document = $docname;
+//    $usercv->references = $request->references;
+    $usercv->address= $request->address;
 
     $usercv->save();
 
 //    dd('done');
 //    return redirect('index')->with('your cv has been added');
 
-        return redirect()->back()->with('error', 'Please fill in the text field.');
+        // for blade
+//        return redirect()->back()->with('error', 'Please fill in the text field.');
+
+    //for api
+        return response()
+                ->json($usercv);
 
     }
 
@@ -70,9 +80,14 @@ class UserCVController extends Controller
     {
         $cv = UserCV::findorfail($id);
 //            ->with('cvstatus');
+
         $cvstatus = $cv->CVstatus;
 
-  return view('usercvcontroller', compact( 'cv', 'cvstatus'));
+//  return view('usercvcontroller', compact( 'cv', 'cvstatus'));
+
+        //api
+        return response()->json($cv);
+
     }
 
     /**
@@ -103,12 +118,41 @@ class UserCVController extends Controller
     public function showcv()
     {
 
-        $userCVs = UserCV::all();
+        $userCVs = UserCV::orderBy('id', 'desc')->get();
 
-        // dd($userCVs);
-        return view('dashboard',
-         ['userCVs' => $userCVs]
-        );
+//         dd($userCVs);
+//        return view('dashboard',
+//         ['userCVs' => $userCVs]
+//        );
+
+        return response()->json($userCVs);
 
     }
+
+    public function login(Request $request)
+    {
+        $data = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+
+
+        $user = User::where('email', $data['email'])->first();
+    $password = ($data['password'] == $user->password);
+        if (!$user || !$password) {
+            return response([
+                'msg' => 'incorrect username or password'
+            ], 401);
+        }
+
+        $token = $user->createToken('apiToken')->plainTextToken;
+
+        $res = [
+            'user' => $user,
+            'token' => $token
+        ];
+
+        return response($res, 201);
+    }
+
 }
