@@ -10,7 +10,6 @@ use App\Http\Requests\UpdateUserCVRequest;
 //use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use function GuzzleHttp\Promise\all;
 
 class UserCVController extends Controller
 {
@@ -61,7 +60,7 @@ class UserCVController extends Controller
 //    $usercv->level = $request->level;
 //    $usercv->salary = $request->salary;
     $usercv->experience = $request->experience;
-//    $usercv->document = $docname;
+    $usercv->document = $docname;
 //    $usercv->references = $request->references;
     $usercv->address= $request->address;
 
@@ -116,17 +115,45 @@ class UserCVController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserCVRequest $request, UserCV $userCV)
+    public function update(UpdateUserCVRequest $request, $id)
     {
-        //
+        $usercv = UserCv::findorfail($id);
+
+        if($request->hasFile('document')){
+            $document = $request->file('document');
+            $ext = $document->getClientOriginalExtension();
+            $docname = time().".".$ext;
+            $store = $document->storeAs('images/cv', $docname);
+        }
+
+        $usercv->name = $request->name;
+        $usercv->age = $request->age;
+        $usercv->email = $request->email;
+        $usercv->phone = $request->phone;
+        $usercv->technology = $request->technology;
+        $usercv->experience = $request->experience;
+        $usercv->document = $docname;
+        $usercv->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'CV Updated successfully',
+            'data' => $usercv
+        ], 200);
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UserCV $userCV)
+    public function destroy($id)
     {
-        //
+        UserCV::where('id', $id)->delete();
+
+        return response()->json([
+                'message' => 'selected application deleted successfully '
+        ],200);
     }
 
 // for admin
@@ -168,6 +195,39 @@ class UserCVController extends Controller
         ];
 
         return response($res, 201);
+    }
+
+    public function sign_up(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string|unique:users,email',
+            'password' => 'required|string|confirmed'
+        ]);
+
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password'])
+        ]);
+        $token = $user->createToken('apiToken')->plainTextToken;
+        $res = [
+            'user' => $user,
+            'token' => $token
+        ];
+        return response($res, 201);
+
+    }
+
+    public function showUsers()
+    {
+        $AllUsers = User::all();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Users Data Retrived successfully',
+            'data' => $AllUsers
+        ], 200);
     }
 
 }

@@ -20,7 +20,7 @@ class UserCV extends Model
 //            'level',
 //            'salary',
             'experience',
-//            'document',
+            'document',
 //            'references',
                 'address',
 

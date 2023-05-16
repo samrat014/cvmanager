@@ -21,7 +21,7 @@ return new class extends Migration
 //            $table->enum('level',['Junior' , 'Mid' ,'Senior']);
 //            $table->string('salary');
             $table->string('experience');
-//            $table->string('document');
+            $table->string('document');
 //            $table->string('references');
             $table->string('address');
             $table->timestamps();
