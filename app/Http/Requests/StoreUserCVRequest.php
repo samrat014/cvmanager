@@ -29,7 +29,7 @@ class StoreUserCVRequest extends FormRequest
 //             "level" => 'required',
 //             "salary" => 'required',
              "experience" => 'required',
-//             "document" => 'required|max:10|file|mimes:jpg,png,pdf',
+             "document" => 'required|file|mimes:jpg,png,pdf',
 //            "references" => 'required',
         ];
     }

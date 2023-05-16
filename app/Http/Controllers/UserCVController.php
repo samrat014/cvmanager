@@ -8,6 +8,7 @@ use App\Models\UserCV;
 use App\Http\Requests\StoreUserCVRequest;
 use App\Http\Requests\UpdateUserCVRequest;
 //use GuzzleHttp\Psr7\Request;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -66,13 +67,17 @@ class UserCVController extends Controller
 
     $usercv->save();
 
+    $this->createstatus($usercv->id);
+
+
+
 //    dd('done');
 //    return redirect('index')->with('your cv has been added');
 
         // for blade
 //        return redirect()->back()->with('error', 'Please fill in the text field.');
 
-    //for api
+
         return response()
                 ->json($usercv);
 
@@ -228,6 +233,16 @@ class UserCVController extends Controller
             'message' => 'Users Data Retrived successfully',
             'data' => $AllUsers
         ], 200);
+    }
+
+    public function createstatus($id)
+    {
+        CVstatus::Create([
+                'usercv_id' => $id,
+                'status' => 'not-shortlisted',
+                'interview_date' => Carbon::now(),
+            ]
+        );
     }
 
 }

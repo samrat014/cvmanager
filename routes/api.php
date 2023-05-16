@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
 use App\Http\Controllers\UserCVController;
 use App\Http\Controllers\admin\CVstatusController;
 use App\Http\Livewire\Search;
@@ -33,7 +32,7 @@ Route::prefix('admin')->group(function () {
 
     Route::post('store', [CVstatusController::class, 'store']);
     Route::get('dashboard', [UserCVController::class, 'showcv'])
-//            ->middleware(['auth', 'verified'])
+//            ->middleware(['auth', 'verified']);
         ->name('dashboard');
 
     // show all user with status
@@ -53,7 +52,7 @@ Route::prefix('admin')->group(function () {
 })->middleware(['auth', 'verified']);
 //});
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
 
-});
+//});

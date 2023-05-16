@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('c_vstatus', function (Blueprint $table) {
         $table->id();
         $table->foreignId('usercv_id')->constrained('user_c_v_s')->onDelete('cascade');
-        $table->enum('status', ['shortlisted', 'First Interview' , 'second interview' , 'Hired', 'Rejected ','Black listed'])->nullable();
+        $table->enum('status', ['not-shortlisted','shortlisted', 'First Interview' , 'second interview' , 'Hired', 'Rejected ','Black listed'])->nullable();
         $table->string('task')->nullable();
         $table->date('interview_date')->nullable();
 
