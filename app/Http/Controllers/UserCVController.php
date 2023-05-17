@@ -9,6 +9,7 @@ use App\Http\Requests\StoreUserCVRequest;
 use App\Http\Requests\UpdateUserCVRequest;
 //use GuzzleHttp\Psr7\Request;
 use Carbon\Carbon;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -120,25 +121,31 @@ class UserCVController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserCVRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $usercv = UserCv::findorfail($id);
 
-        if($request->hasFile('document')){
+        $usercv = UserCv::findorfail($id);
+        if (!$usercv) {
+            return response()->json('user not found');
+        }
+        $docname = $usercv->document;
+        if ($request->hasFile('document')) {
             $document = $request->file('document');
             $ext = $document->getClientOriginalExtension();
-            $docname = time().".".$ext;
+            $docname = time() . "." . $ext;
             $store = $document->storeAs('images/cv', $docname);
         }
 
-        $usercv->name = $request->name;
-        $usercv->age = $request->age;
-        $usercv->email = $request->email;
-        $usercv->phone = $request->phone;
-        $usercv->technology = $request->technology;
-        $usercv->experience = $request->experience;
-        $usercv->document = $docname;
-        $usercv->save();
+        $usercv->update([
+            'name' => $request->name ?? $usercv->name,
+            'age' => $request->age ?? $usercv->age,
+            'email' => $request->email ?? $usercv->email,
+            'technology' => $request->technology ?? $usercv->technology,
+            'phone' => $request->phone ?? $usercv->phone,
+            'experience' => $request->experience ?? $usercv->experience,
+            'document' => $docname ?? $usercv->document,
+            'address' => $request->address ?? $usercv->address,
+        ]);
 
         return response()->json([
             'status' => 'success',

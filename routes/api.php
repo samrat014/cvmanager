@@ -49,8 +49,8 @@ Route::prefix('admin')->group(function () {
     Route::delete('cvdelete/{id}',[UserCVController::class, 'destroy']);
 
 
-})->middleware(['auth', 'verified']);
-//});
+//})->middleware(['auth', 'verified']);
+});
 
 //Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //    return $request->user();
