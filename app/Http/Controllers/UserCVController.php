@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserCVController extends Controller
 {
@@ -125,15 +126,19 @@ class UserCVController extends Controller
     {
 
         $usercv = UserCv::findorfail($id);
+//        dd(public_path('image/cv' . $usercv->document ));
         if (!$usercv) {
             return response()->json('user not found');
         }
         $docname = $usercv->document;
         if ($request->hasFile('document')) {
+            Storage::delete(public_path('image/cv' . $usercv->document ));
+
             $document = $request->file('document');
             $ext = $document->getClientOriginalExtension();
             $docname = time() . "." . $ext;
-            $store = $document->storeAs('images/cv', $docname);
+            $document->storeAs('images/cv', $docname);
+
         }
 
         $usercv->update([
@@ -161,10 +166,22 @@ class UserCVController extends Controller
      */
     public function destroy($id)
     {
-        UserCV::where('id', $id)->delete();
+        $deleteUser = UserCV::find($id);
+        if (!$deleteUser){
+            return response()->json('user not found',200);
+        }
+        $deleteUser->delete();
+        $docpath = public_path('image/cv' . $deleteUser->document );
+
+        if (Storage::exists($docpath)){
+            Storage::delete($docpath);
+        }
+
+//        UserCV::where('id', $id)->delete();
 
         return response()->json([
-                'message' => 'selected application deleted successfully '
+                'message' => 'selected application deleted successfully ',
+                'cv' => 'user cv deleted',
         ],200);
     }
 

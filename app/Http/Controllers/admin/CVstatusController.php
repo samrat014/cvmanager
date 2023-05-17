@@ -15,8 +15,8 @@ class CVstatusController extends Controller
         $request->validate([
             'id' => 'required',
             'status' => 'required',
-                Rule::in(['shortlisted', 'First Interview' , 'not-shortlisted',
-                            'second interview' , 'Hired', 'Rejected ','Black listed']),
+//                Rule::in(['shortlisted', 'First Interview' , 'not-shortlisted',
+//                            'second interview' , 'Hired', 'Rejected ','Black listed']),
             'task' => 'nullable',
             'interview_date' => 'nullable',
         ]);

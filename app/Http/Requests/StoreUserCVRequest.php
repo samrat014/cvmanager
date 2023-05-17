@@ -23,6 +23,7 @@ class StoreUserCVRequest extends FormRequest
     {
         return [
              "name" => 'required',
+            "age" => 'required',
              "phone" => 'required|min:10',
              "email" => 'required|email',
              "technology" => 'required',
