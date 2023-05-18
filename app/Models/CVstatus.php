@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CVstatus extends Model
 {
-    protected $table = 'c_vstatus';
+    protected $table = 'applicant_status';
 
     use HasFactory;
 

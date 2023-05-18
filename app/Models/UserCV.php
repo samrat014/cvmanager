@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class UserCV extends Model
 {
+
+    protected $table = 'applicant';
+
     use HasFactory;
 
     protected $fillable = [
