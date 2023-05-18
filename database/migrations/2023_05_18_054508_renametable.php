@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::rename('user_c_v_s', 'applicant');
+        Schema::rename('user_c_v_s', 'applicants');
         Schema::rename('c_vstatus', 'applicant_status');
 
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::rename('applicant', 'user_c_v_s' );
+        Schema::rename('applicants', 'user_c_v_s' );
         Schema::rename('applicant_status', 'c_vstatus');
 
     }

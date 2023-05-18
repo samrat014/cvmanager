@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class UserCV extends Model
 {
 
-    protected $table = 'applicant';
+    protected $table = 'applicants';
 
     use HasFactory;
 
@@ -34,5 +34,6 @@ public function cvstatus(): HasOne
     return $this->hasOne(CVstatus::class, 'usercv_id');
 
 }
+protected $casts = ["technology"];
 
 }
