@@ -7,12 +7,9 @@ use App\Models\User;
 use App\Models\UserCV;
 use App\Http\Requests\StoreUserCVRequest;
 use App\Http\Requests\UpdateUserCVRequest;
-//use GuzzleHttp\Psr7\Request;
 use Carbon\Carbon;
-use http\Env\Response;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class UserCVController extends Controller
 {
@@ -132,7 +129,7 @@ class UserCVController extends Controller
         }
         $docname = $usercv->document;
         if ($request->hasFile('document')) {
-            Storage::delete(public_path('image/cv' . $usercv->document ));
+            File::delete(public_path('images/cv/' . $usercv->document ));
 
             $document = $request->file('document');
             $ext = $document->getClientOriginalExtension();
@@ -170,12 +167,11 @@ class UserCVController extends Controller
         if (!$deleteUser){
             return response()->json('user not found',200);
         }
-        $deleteUser->delete();
-        $docpath = public_path('image/cv' . $deleteUser->document );
-
-        if (Storage::exists($docpath)){
-            Storage::delete($docpath);
+        $docpath = public_path('images/cv/' . $deleteUser->document );
+        if (File::exists($docpath)){
+            File::delete($docpath);
         }
+        $deleteUser->delete();
 
 //        UserCV::where('id', $id)->delete();
 
