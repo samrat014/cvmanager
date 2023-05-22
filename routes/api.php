@@ -6,6 +6,7 @@ use App\Http\Controllers\UserCVController;
 use App\Http\Controllers\admin\CVstatusController;
 use App\Http\Livewire\Search;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\pdfHandlerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,9 @@ Route::prefix('admin')->group(function () {
 
     Route::post('cvupdate/{id}',[UserCVController::class, 'update']);
     Route::delete('cvdelete/{id}',[UserCVController::class, 'destroy']);
+
+
+    Route::post('pdfstore', [pdfHandlerController::class, 'store']);
 
 
 //})->middleware(['auth', 'verified']);
